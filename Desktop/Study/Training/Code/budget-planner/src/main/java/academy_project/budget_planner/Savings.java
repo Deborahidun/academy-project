@@ -24,7 +24,7 @@ public class Savings extends FinancialItem {
 
                 if (amount < 0) {
                     System.out.println("Please enter a positive amount for savings.");
-                } else if (amount + expense.getTotalExpenses() > income) {
+                } else if (amount + expense.getAmount() > income) {
                     System.out.println("Error: Total savings and expenses cannot exceed your income of $" + income);
                 } else {
                     break; // Valid input, exit the loop
