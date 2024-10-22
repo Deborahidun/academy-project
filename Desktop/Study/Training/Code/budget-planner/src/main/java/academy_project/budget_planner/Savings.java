@@ -2,20 +2,23 @@ package academy_project.budget_planner;
 
 import java.util.Scanner;
 
+// Class to handle savings data
 public class Savings extends FinancialItem {
     private double income; // Reference to the total income
     private Expense expense; // Reference to the Expense class
+    private Scanner scanner; // Declare Scanner as a member variable
 
-    // Constructor accepts total income and an Expense instance
-    public Savings(double income, Expense expense) {
+    // Constructor accepts total income, Expense instance, and Scanner
+    public Savings(double income, Expense expense, Scanner scanner) {
         this.income = income;
         this.expense = expense;
+        this.scanner = scanner; // Initialize the scanner
         this.amount = 0.0; // Initialize amount from FinancialItem
     }
 
-    // Collect savings data from the user and validate
+    // Collects savings data from the user
+    @Override
     public void collectData() {
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your savings goal: ");
 
         while (true) {
@@ -33,10 +36,5 @@ public class Savings extends FinancialItem {
                 System.out.println("Invalid input. Please enter a valid amount.");
             }
         }
-    }
-
-    // Getter for savings goal
-    public double getSavingsGoal() {
-        return amount; // Return the savings goal
     }
 }

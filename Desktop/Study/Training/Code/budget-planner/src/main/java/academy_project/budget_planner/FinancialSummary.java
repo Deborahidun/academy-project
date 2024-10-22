@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+// Class to display and save the financial summary
 public class FinancialSummary {
     private double totalIncome;
     private double totalExpenses;
@@ -39,5 +40,6 @@ public class FinancialSummary {
         }
     }
 }
+
 
 

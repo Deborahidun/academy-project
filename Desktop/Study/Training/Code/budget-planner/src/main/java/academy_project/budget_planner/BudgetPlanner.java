@@ -1,8 +1,8 @@
 package academy_project.budget_planner;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
+// Main class for Budget Planner
 public class BudgetPlanner {
     private Income income;    // Instance variable to hold income data
     private Expense expense;  // Instance variable to hold expense data
@@ -14,75 +14,56 @@ public class BudgetPlanner {
 
         System.out.println("You are taking your first step to financial freedom.\n");
 
-        while (true) {
+        do {
             // Display menu options to the user
-            System.out.println("Please choose an option by entering the corresponding number:");
+            System.out.println("Please choose an option:\n");
             System.out.println("1. Input Income");
             System.out.println("2. Input Expenses");
             System.out.println("3. Input Savings (optional)");
             System.out.println("4. Get Summary");
-            System.out.println("5. Exit");
-            System.out.print("Enter your choice (1-5): ");
+            System.out.println("5. Exit\n");
+            System.out.print("Enter the corresponding number for your choice: ");
 
+            // Attempt to read and parse user choice
             try {
-                choice = scanner.nextInt(); // Read user input
-                scanner.nextLine(); // Consume the newline character
+                choice = Integer.parseInt(scanner.nextLine());
 
+                // Handle each menu choice
                 switch (choice) {
-                    case 1: // Option 1: Input Income
-                        income = new Income(); // Initialize the Income object
-                        income.collectData(); // Call collectData directly to gather income information
+                    case 1: // Input Income
+                        income = new Income(scanner); // Create Income instance
+                        income.collectData(); // Collect income data
                         break;
-
-                    case 2: // Option 2: Input Expenses
-                        if (income == null) {
-                            System.out.println("\nPlease enter your income first.\n");
-                        } else {
-                            expense = new Expense(income.getTotalIncome()); // Initialize Expense object
-                            expense.collectData(); // Collect expense data from the user
-                        }
+                    case 2: // Input Expenses
+                        expense = new Expense(income.getAmount(), scanner); // Create Expense instance with income validation inside
+                        expense.collectData(); // Collect expense data
                         break;
-
-                    case 3: // Option 3: Input Savings (optional)
-                        if (income == null || expense == null) {
-                            System.out.println("\nPlease enter both income and expenses first.\n");
-                        } else {
-                            savings = new Savings(income.getTotalIncome(), expense); // Initialize Savings object
-                            savings.collectData(); // Collect savings goal from the user
-                        }
+                    case 3: // Input Savings
+                        savings = new Savings(income.getAmount(), expense, scanner); // Create Savings instance
+                        savings.collectData(); // Collect savings data
                         break;
-
-                    case 4: // Option 4: Get Summary
-                        if (income == null || expense == null) {
-                            System.out.println("\nPlease enter both income and expenses first.\n");
-                        } else {
-                            double totalSavings = (savings != null) ? savings.getSavingsGoal() : 0.0; // Get savings goal if it exists
-                            FinancialSummary summary = new FinancialSummary(income.getTotalIncome(), expense.getTotalExpense(), totalSavings);
-                            
-                            summary.displaySummary(); // Display the financial summary on the console
-                            summary.saveSummaryToFile(); // Save the financial summary to a file
-                        }
+                    case 4: // Get Summary
+                        FinancialSummary summary = new FinancialSummary(income.getAmount(), expense.getAmount(), savings != null ? savings.getAmount() : 0.0); // Create summary
+                        summary.displaySummary(); // Display summary
+                        summary.saveSummaryToFile(); // Save summary to file
                         break;
-
-                    case 5: // Option 5: Exit the program
-                        System.out.println("\nExiting. Thank you for using the Budget Planner!\n");
-                        return; // Exit the loop and terminate the program
-
-                    default: // Handle invalid input
-                        System.out.println("\nInvalid option. Please enter a number between 1 and 5.\n");
+                    case 5: // Exit
+                        System.out.println("\nThank you for using the Budget Planner. Goodbye!\n"); // Exit message
+                        scanner.close(); // Close scanner
+                        return; // Exit the program
+                    default: // Invalid choice
+                        System.out.println("\nInvalid choice. Please select a valid option.\n"); // Error message for invalid choice
                 }
-            } catch (InputMismatchException e) {
-                // Handle invalid input types
-                System.out.println("\nInvalid input. Please enter a valid number.\n");
-                scanner.nextLine(); // Consume the invalid input
+            } catch (NumberFormatException e) { // Handle invalid input
+                System.out.println("\nInvalid input. Please enter a valid number.\n"); // Error message for invalid input
+                choice = 0; // Set choice to an invalid number to repeat the loop
             }
-        }
+        } while (choice != 5); // Continue until user chooses to exit
     }
 
+    // Main method to run the program
     public static void main(String[] args) {
-        BudgetPlanner planner = new BudgetPlanner(); // Create a BudgetPlanner instance
-        planner.showMainMenu(); // Show the main menu for user interaction
+        BudgetPlanner planner = new BudgetPlanner(); // Create BudgetPlanner instance
+        planner.showMainMenu(); // Show the main menu
     }
 }
-
-
