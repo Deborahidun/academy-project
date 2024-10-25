@@ -16,25 +16,30 @@ public class Income extends FinancialItem {
     @Override
     public void collectData() {
         while (true) {
-            System.out.print("Enter your total income: "); // Prompt user for total income
+            System.out.print(ConsoleColors.CYAN + "Enter your total income: " + ConsoleColors.RESET + "\n"); // Prompt user for total income
 
             try {
                 amount = Double.parseDouble(scanner.nextLine()); // Read and parse user input directly
+                
+                // Check if the income is valid
                 if (amount < 0) {
-                    throw new IllegalArgumentException("Income cannot be negative.");
+                    throw new IllegalArgumentException(ConsoleColors.RED + "Income cannot be negative." + ConsoleColors.RESET + "\n");
+                } else if (amount == 0) {
+                    throw new IllegalArgumentException(ConsoleColors.RED + "Income cannot be zero." + ConsoleColors.RESET + "\n"); // Check for zero income
                 }
+                
                 break; // Exit the loop on valid input
                 
             } catch (NumberFormatException e) {
-            	
-                System.out.println("Invalid input. Please enter a valid number.");
+                System.out.println(ConsoleColors.RED + "Invalid input. Please enter a valid number." + ConsoleColors.RESET + "\n");
                 
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage()); // Handle negative income case
+                System.out.println(e.getMessage()); // Handle negative or zero income case
             }
         }
-        System.out.println("\nTotal income has been recorded.\n"); 
+        System.out.println(ConsoleColors.GREEN + "\nTotal income has been recorded." + ConsoleColors.RESET + "\n"); 
     }
 }
+
 
 
