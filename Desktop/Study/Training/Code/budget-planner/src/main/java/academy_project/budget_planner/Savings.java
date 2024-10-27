@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 // Class to handle savings data
 public class Savings extends FinancialItem {
-    private Double income; 
+    private double income; 
     private Expense expense; 
     private Scanner scanner; 
 
     // Constructor accepts total income, Expense instance, and Scanner
-    public Savings(Double income, Expense expense, Scanner scanner) {
+    public Savings(double income, Expense expense, Scanner scanner) {
         this.income = income;
         this.expense = expense; 
         this.scanner = scanner; 

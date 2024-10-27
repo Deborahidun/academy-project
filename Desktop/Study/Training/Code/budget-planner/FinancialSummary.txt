@@ -1,0 +1,6 @@
+Financial Summary
+Total Income: $100.0
+Total Expenses: $28.0
+Savings Goal: $7.0
+Percentage of Income Spent on Expenses: 28.000000000000004%
+Remainder: $65.0
