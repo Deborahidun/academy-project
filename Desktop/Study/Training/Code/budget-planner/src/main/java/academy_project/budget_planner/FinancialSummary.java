@@ -22,10 +22,10 @@ public class FinancialSummary {
         return totalIncome - totalExpenses - savingsGoal;
     }
 
-    // New Method: Calculate percentage of income spent on expenses
+    // Calculate percentage of income spent on expenses
     public double calculateExpensePercentage() {
         if (totalIncome == 0) {
-            return 0; // Avoid division by zero if totalIncome is somehow zero
+            return 0; 
         }
         return (totalExpenses / totalIncome) * 100;
     }
@@ -36,6 +36,7 @@ public class FinancialSummary {
         System.out.println("Total Income: $" + totalIncome);
         System.out.println("Total Expenses: $" + totalExpenses);
         System.out.println("Savings Goal: $" + savingsGoal);
+        System.out.printf("Percentage of Income Spent on Expenses: %.2f%%\n", calculateExpensePercentage()); // Display the expense percentage
         System.out.println(ConsoleColors.GREEN + "Remainder: $" + calculateRemainder() + ConsoleColors.RESET + "\n"); 
     }
 
@@ -47,8 +48,8 @@ public class FinancialSummary {
             writer.write("Total Income: $" + totalIncome + "\n");
             writer.write("Total Expenses: $" + totalExpenses + "\n");
             writer.write("Savings Goal: $" + savingsGoal + "\n");
+            writer.write("Percentage of Income Spent on Expenses: " + calculateExpensePercentage() + "%\n"); // Added percentage to file output
             writer.write("Remainder: $" + calculateRemainder() + "\n"); 
-            writer.write("Percentage of Income Spent on Expenses: " + calculateExpensePercentage() + "%\n");
             System.out.println(ConsoleColors.CYAN + "Summary saved to " + filename + ConsoleColors.RESET + "\n");
         } catch (IOException e) {
             System.out.println(ConsoleColors.RED + "An error occurred while saving the summary." + ConsoleColors.RESET + "\n");
